@@ -1,0 +1,19 @@
+# Ignore node_modules
+frontend/ecommerce/node_modules/
+
+# Ignore Django's virtual environment
+backend/venv/
+
+# Ignore Python cache files
+**/__pycache__/
+**/*.py[cod]
+
+# Ignore SQLite database
+backend/ArtWall/db.sqlite3
+
+# Ignore Django migrations 
+**/migrations/
+
+# Ignore other operating system-specific files
+*.DS_Store
+*.log
