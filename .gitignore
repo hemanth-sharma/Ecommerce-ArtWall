@@ -1,5 +1,3 @@
-# Ignore node_modules
-frontend/ecommerce/node_modules/
 
 # Ignore Django's virtual environment
 backend/venv/
