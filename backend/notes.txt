@@ -1,0 +1,15 @@
+Install django and django rest-framework
+Set up a django app and configure in the settings.
+settings.py    
+    add rest_framework 
+    add appName
+
+create urls.py in appName (here api)
+Inside urls.py put your endpoint for home 
+create and server a home_view through views.py file to urls.py in api
+Also configure urls.py of Project
+
+Set up a database
+Install Postgressql
+
+pip install psycopg2
