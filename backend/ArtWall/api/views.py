@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Product, Wishlist, Cart, Category
-from .serializers import ProductSerializer, WishlistSerializer, CartSerializer
+from .serializers import ProductSerializer, WishlistSerializer, CategorySerializer, CartSerializer
 from django.db.models import Q
 from rest_framework import status
 
@@ -57,6 +57,14 @@ def getProduct(request, pk):
 def getWishlist(request):
     wishlist_items = Wishlist.objects.filter(user=request.user)
     serializer = WishlistSerializer(wishlist_items, many=True)
+    return Response(serializer.data)
+
+
+# Get all categories.
+@api_view(['GET'])
+def getCategories(request):
+    categories = Category.objects.all()
+    serializer = CategorySerializer(categories, many=True)
     return Response(serializer.data)
 
 

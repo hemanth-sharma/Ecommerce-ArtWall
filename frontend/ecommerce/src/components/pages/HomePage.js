@@ -19,8 +19,8 @@ function HomePage() {
 
         if (response.data.length > 0) {
           const randomProduct = response.data[Math.floor(Math.random() * response.data.length)];
+          
           setFeaturedProduct(randomProduct);
-
           setProducts(response.data.slice(0, 18));
         }
       } catch (error) {

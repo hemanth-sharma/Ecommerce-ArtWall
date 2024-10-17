@@ -8,7 +8,8 @@ backend/venv/
 
 # Ignore SQLite database
 backend/ArtWall/db.sqlite3
-
+backend/notes.txt
+backend/ArtWall/static/media/
 # Ignore Django migrations 
 **/migrations/
 

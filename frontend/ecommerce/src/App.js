@@ -8,6 +8,7 @@ import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import CartPage from './components/pages/CartPage';
 import ProductPage from './components/pages/ProductPage';
+import AllProductsPage from './components/pages/AllProductsPage';
 
 
 
@@ -18,6 +19,9 @@ function App() {
         <Header />
         <Routes>
           <Route exact path='/' element={<HomePage />}></Route>
+        </Routes>
+        <Routes>
+          <Route exact path="/products" element={<AllProductsPage />}></Route>
         </Routes>
         <Routes>
           <Route exact path="/product/:id" element={<ProductPage />}></Route>
