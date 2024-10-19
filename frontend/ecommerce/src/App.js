@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from "react-bootstrap";
-import {HashRouter as Router,Routes,Route} from 'react-router-dom'
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import Header from './components/Header';
 import HomePage from './components/pages/HomePage';
 import Footer from './components/Footer';

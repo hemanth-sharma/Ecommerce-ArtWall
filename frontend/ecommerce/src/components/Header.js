@@ -56,13 +56,14 @@ function Header() {
               className="custom-dropdown" 
               ref={dropdownRef}
             >
-              <div
+              <Nav.Link
+                // href="#"
                 className={`dropdown-toggle ${showDropdown ? "show" : ""}`}
                 id="categoryDropdown"
                 onClick={handleDropdownToggle}
               >
                 Categories
-              </div>
+              </Nav.Link>
               {showDropdown && (
                 <div className={`dropdown-menu p-3 ${showDropdown ? "show" : ""}`}>
                   <Row className="dropdown-row">

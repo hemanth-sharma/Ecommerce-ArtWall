@@ -52,19 +52,36 @@ def getProduct(request, pk):
     return Response(serializer.data)
 
 
-# Get Wishlist Items of user
-@api_view(['GET'])
-def getWishlist(request):
-    wishlist_items = Wishlist.objects.filter(user=request.user)
-    serializer = WishlistSerializer(wishlist_items, many=True)
-    return Response(serializer.data)
-
-
 # Get all categories.
 @api_view(['GET'])
 def getCategories(request):
     categories = Category.objects.all()
     serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def searchProducts(request):
+    query = request.GET.get('query', '')
+    
+    if query:
+        products = Product.objects.filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query) |
+            Q(category__name__icontains=query)
+        ).distinct()
+    else:
+        products = Product.objects.all()
+    
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+
+# Get Wishlist Items of user
+@api_view(['GET'])
+def getWishlist(request):
+    wishlist_items = Wishlist.objects.filter(user=request.user)
+    serializer = WishlistSerializer(wishlist_items, many=True)
     return Response(serializer.data)
 
 
