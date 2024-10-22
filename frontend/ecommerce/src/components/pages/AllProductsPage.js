@@ -47,7 +47,7 @@ function AllProductsPage() {
 
       <Container className="collection-container">
         <Row>
-          {products.map((product) => ( // Use filteredProducts instead of products
+          {products.map((product) => ( 
             <Col key={product._id} xs={6} sm={4} md={3} lg={2}>
               <Product product={product} />
             </Col>

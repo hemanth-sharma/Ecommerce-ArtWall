@@ -68,7 +68,7 @@ def searchProducts(request):
         products = Product.objects.filter(
             Q(name__icontains=query) |
             Q(description__icontains=query) |
-            Q(category__name__icontains=query)
+            Q(productcategory__category__category__icontains=query)
         ).distinct()
     else:
         products = Product.objects.all()

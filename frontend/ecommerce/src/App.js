@@ -9,6 +9,8 @@ import SignupPage from './components/pages/SignupPage';
 import CartPage from './components/pages/CartPage';
 import ProductPage from './components/pages/ProductPage';
 import AllProductsPage from './components/pages/AllProductsPage';
+import SearchProductsPage from './components/pages/SearchProductsPage';
+import WishlistPage from './components/pages/WishlistPage';
 
 
 
@@ -24,6 +26,9 @@ function App() {
           <Route exact path="/products" element={<AllProductsPage />}></Route>
         </Routes>
         <Routes>
+          <Route exact path="/search" element={<SearchProductsPage />}></Route>
+        </Routes>
+        <Routes>
           <Route exact path="/product/:id" element={<ProductPage />}></Route>
         </Routes>
         <Routes>
@@ -34,6 +39,9 @@ function App() {
         </Routes>
         <Routes>
           <Route exact path="/cart" element={<CartPage />}></Route>
+        </Routes>
+        <Routes>
+          <Route exact path="/wishlist" element={<WishlistPage />}></Route>
         </Routes>
         <Footer />        
       </Router>

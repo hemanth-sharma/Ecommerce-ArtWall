@@ -60,7 +60,9 @@ function HomePage() {
                 <div className="button-group">
                   <Button variant="primary" className="me-3 mb-3">Add to Cart</Button>
                   <Button variant="secondary" className="me-3 mb-3">Like</Button>
-                  <Button variant="outline-info" className="mb-3">View</Button>
+                  <Link to={`/product/${featuredProduct._id}`}>
+                    <Button variant="outline-info" className="mb-3">View</Button>
+                  </Link>
                 </div>
               </Col>
             </Row>
