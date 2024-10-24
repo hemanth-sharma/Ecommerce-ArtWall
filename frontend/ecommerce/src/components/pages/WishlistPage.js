@@ -12,10 +12,18 @@ function WishlistPage() {
     const fetchWishlist = async () => {
       try {
         const response = await axios.get('/api/wishlist/');
-        setWishlist(response.data);
+        if (response.data && response.data.length > 0){
+          setWishlist(response.data);
+        }
+        else {
+          const localWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+          setWishlist(localWishlist)
+        }
         setLoading(false);
       } catch (err) {
-        setError("Error fetching wishlist");
+        const localWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        setWishlist(localWishlist)
+        // setError("Error fetching wishlist");
         setLoading(false);
       }
     };
