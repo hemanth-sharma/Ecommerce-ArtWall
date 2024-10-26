@@ -112,6 +112,43 @@ def removeFromWishlist(request, pk):
     except Wishlist.DoesNotExist:
         return Response({"detail": "Wishlist item not found"}, status=status.HTTP_404_NOT_FOUND)
     
+
+# views.py
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getCartItems(request):
+    cart_items = Cart.objects.filter(user=request.user)
+    serializer = CartSerializer(cart_items, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  # Only allow authenticated users to access this endpoint
+def addToCart(request):
+    product_id = request.data.get('product_id')
+    try:
+        product = Product.objects.get(_id=product_id)
+        cart_item, created = Cart.objects.get_or_create(user=request.user, product=product)
+        if created:
+            return Response({"detail": "Product added to cart"}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({"detail": "Product is already in the cart"}, status=status.HTTP_200_OK)
+    except Product.DoesNotExist:
+        return Response({"detail": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def removeFromCart(request, pk):
+    try:
+        cart_item = Cart.objects.get(_id=pk, user=request.user)
+        cart_item.delete()
+        return Response({"detail": "Product removed from cart"}, status=status.HTTP_204_NO_CONTENT)
+    except Cart.DoesNotExist:
+        return Response({"detail": "Cart item not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def getUserProfile(request):

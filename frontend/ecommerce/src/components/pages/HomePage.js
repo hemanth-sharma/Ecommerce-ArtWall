@@ -4,12 +4,13 @@ import './HomePage.css'; // Ensure CSS for styling is applied
 import { imageUrl, paintingUrls } from '../PaintingProducts.js'
 import Product from '../Product.js';
 import { Link } from "react-router-dom";
-import axios from "axios"
-
+import axios from "axios";
+import useCartActions from "../../hooks/useCartActions";
 
 function HomePage() {
   const [featuredProduct, setFeaturedProduct] = useState(null);
   const [products, setProducts] = useState([]);
+  const { addToCart } = useCartActions();
 
   useEffect(()=>{
     const fetchProduct = async ()=>{
@@ -58,7 +59,7 @@ function HomePage() {
               {/* Right Side - Buttons in a row at the bottom-right */}
               <Col md={6} className="d-flex flex-column justify-content-end align-items-end">
                 <div className="button-group">
-                  <Button variant="primary" className="me-3 mb-3">Add to Cart</Button>
+                  <Button variant="primary" className="me-3 mb-3" onClick={() => addToCart(featuredProduct)}>Add to Cart</Button>
                   <Button variant="secondary" className="me-3 mb-3">Like</Button>
                   <Link to={`/product/${featuredProduct._id}`}>
                     <Button variant="outline-info" className="mb-3">View</Button>

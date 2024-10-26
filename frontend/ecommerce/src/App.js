@@ -20,28 +20,14 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route exact path='/' element={<HomePage />}></Route>
-        </Routes>
-        <Routes>
-          <Route exact path="/products" element={<AllProductsPage />}></Route>
-        </Routes>
-        <Routes>
-          <Route exact path="/search" element={<SearchProductsPage />}></Route>
-        </Routes>
-        <Routes>
-          <Route exact path="/product/:id" element={<ProductPage />}></Route>
-        </Routes>
-        <Routes>
-          <Route exact path="/login" element={<LoginPage />}></Route>
-        </Routes>
-        <Routes>
-          <Route exact path="/signup" element={<SignupPage />}></Route>
-        </Routes>
-        <Routes>
-          <Route exact path="/cart" element={<CartPage />}></Route>
-        </Routes>
-        <Routes>
-          <Route exact path="/wishlist" element={<WishlistPage />}></Route>
+          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/products" element={<AllProductsPage />} />
+          <Route exact path="/search" element={<SearchProductsPage />} />
+          <Route exact path="/product/:id" element={<ProductPage />} />
+          <Route exact path="/login" element={<LoginPage />} />
+          <Route exact path="/signup" element={<SignupPage />} />
+          <Route exact path="/cart" element={<CartPage />} />
+          <Route exact path="/wishlist" element={<WishlistPage />} />
         </Routes>
         <Footer />        
       </Router>

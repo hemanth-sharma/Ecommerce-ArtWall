@@ -2,7 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Container, Row, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa'; // Font Awesome stars
+import { FaStar } from 'react-icons/fa'; 
+import useCartActions from "../../hooks/useCartActions";
+
 
 function ProductPage() {
   const { id } = useParams();
@@ -10,7 +12,8 @@ function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showFullDescription, setShowFullDescription] = useState(false)
-  
+  const { addToCart } = useCartActions();
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -79,7 +82,7 @@ function ProductPage() {
             <p>In Stock: {product.in_stock ? "Yes" : "No"}</p>
             <p>Price: <strong>₹</strong>{product.price}</p>
             <div className="d-flex">
-              <Button variant="primary" className="mr-2">Add to Cart</Button>
+              <Button variant="primary" className="mr-2" onClick={() => addToCart(product)}>Add to Cart</Button>
               <Button variant="success">Buy Now</Button>
             </div>
           </Col>

@@ -1,54 +1,73 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Product from "../Product";
+import { useCart } from "../../context/cartContext";
+import { useWishlist } from '../../context/wishlistContext';
+import useCartActions from "../../hooks/useCartActions";
+import { useAuth } from "../../context/AuthContext";
+
 
 function WishlistPage() {
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { isAuthenticated } = useAuth();
+  const { setIsAuthenticated } = useAuth();
+  const {setCartItemCount} = useCart();
+  const {setWishlistItemCount} = useWishlist();
+  const { addToCart } = useCartActions();
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setIsAuthenticated(!!token); // Set to true if token exists
+  }, []);
 
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const response = await axios.get('/api/wishlist/');
-        if (response.data && response.data.length > 0){
+        if (isAuthenticated) {
+          // Fetch wishlist from backend if authenticated
+          const response = await axios.get('api/wishlist/');
           setWishlist(response.data);
-        }
-        else {
+        } else {
+          // Fetch wishlist from localStorage if not authenticated
           const localWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-          setWishlist(localWishlist)
+          setWishlist(localWishlist);
         }
-        setLoading(false);
       } catch (err) {
+        // In case of error, fallback to localStorage
         const localWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        setWishlist(localWishlist)
-        // setError("Error fetching wishlist");
+        setWishlist(localWishlist);
+      } finally {
         setLoading(false);
       }
     };
+    
     fetchWishlist();
-  }, []);
+  }, [isAuthenticated]);
 
+  
+  
   if (loading) return <><p>Loading....</p></>;
   if (error) return <><p>{error}</p></>;
 
   return (
     <Container>
-      <h2>My Wishlist</h2>
+      <h2 className='text-center my-4'>My Wishlist</h2>
       <Row>
         {wishlist.length > 0 ? (
           wishlist.map((product) => (
-            <Col key={product.id} md={4}>
-              <Card className="mb-4">
-                <Link to={`/product/${product.id}`}>
-                  <Card.Img variant="top" src={product.image} alt={product.name} />
-                </Link>
-                <Card.Body>
-                  <Card.Title>{product.name}</Card.Title>
-                  <Card.Text>Price: ${product.price.toFixed(2)}</Card.Text>
-                </Card.Body>
-              </Card>
+            <Col key={product.id} xs={6} sm={4} md={3} lg={2}>
+              <Product product={product} />
+              <Button 
+                  variant="primary" 
+                  className="mt-2 w-100" 
+                  onClick={() => addToCart(product)}
+                >
+                  Add to Cart
+                </Button>
             </Col>
           ))
         ) : (
