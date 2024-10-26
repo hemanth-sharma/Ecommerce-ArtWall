@@ -7,12 +7,20 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import useCartActions from "../../hooks/useCartActions";
 
+import { useWishlist } from "../../context/wishlistContext";
+import { useAuth } from "../../context/AuthContext.js"
+import { wishlistClickHandler } from "../../utils/wishlistUtils.js";
+
 function HomePage() {
   const [featuredProduct, setFeaturedProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const { addToCart } = useCartActions();
+  const [isLiked, setIsLikedWishlist] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const { setWishlistItemCount } = useWishlist();
 
   useEffect(()=>{
+    
     const fetchProduct = async ()=>{
       try {
         // Fetch all products from the backend API
@@ -31,6 +39,12 @@ function HomePage() {
     fetchProduct();
 
   }, []);
+
+  const handleWishlistClick = () => {
+    wishlistClickHandler(featuredProduct, isLiked, setIsLikedWishlist, isAuthenticated, setWishlistItemCount);
+  };
+  
+  
   // console.log("The Products Data")
   // console.log(featuredProduct)
   // console.log("List of Products")
@@ -59,10 +73,10 @@ function HomePage() {
               {/* Right Side - Buttons in a row at the bottom-right */}
               <Col md={6} className="d-flex flex-column justify-content-end align-items-end">
                 <div className="button-group">
-                  <Button variant="primary" className="me-3 mb-3" onClick={() => addToCart(featuredProduct)}>Add to Cart</Button>
-                  <Button variant="secondary" className="me-3 mb-3">Like</Button>
-                  <Link to={`/product/${featuredProduct._id}`}>
-                    <Button variant="outline-info" className="mb-3">View</Button>
+                  <Button variant="primary" className="w-100 mb-3" onClick={() => addToCart(featuredProduct)}>Add to Cart</Button>
+                  <Button className="w-100 mb-3" style={{ backgroundColor: isLiked ? "#F00" : "#5BC0DE", borderColor: isLiked ? "#FF6B6B" : "#5BC0DE" }} onClick={handleWishlistClick}>Like</Button>
+                  <Link to={`/product/${featuredProduct._id}`} className="w-100">
+                    <Button variant="outline-info" className="w-100">View</Button>
                   </Link>
                 </div>
               </Col>

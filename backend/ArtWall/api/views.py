@@ -125,14 +125,23 @@ def getCartItems(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])  # Only allow authenticated users to access this endpoint
 def addToCart(request):
+    print("reequest = ", request)
     product_id = request.data.get('product_id')
+    quantity = request.data.get('quantity', 1)
+
     try:
         product = Product.objects.get(_id=product_id)
         cart_item, created = Cart.objects.get_or_create(user=request.user, product=product)
         if created:
-            return Response({"detail": "Product added to cart"}, status=status.HTTP_201_CREATED)
+            cart_item.quantity = quantity
+            cart_item.save()
+            return Response({"detail": "Product added to cart", "quantity": cart_item.quantity}, status=status.HTTP_201_CREATED)
         else:
-            return Response({"detail": "Product is already in the cart"}, status=status.HTTP_200_OK)
+            # If the item already exists, then increment the quantity.
+            cart_item.quantity += quantity
+            cart_item.save()
+            return Response({"detail": "Product is already in the cart", "quantity": cart_item.quantity}, status=status.HTTP_200_OK)
+    
     except Product.DoesNotExist:
         return Response({"detail": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
 

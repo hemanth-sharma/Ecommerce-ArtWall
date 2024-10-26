@@ -81,9 +81,9 @@ function ProductPage() {
             </div>
             <p>In Stock: {product.in_stock ? "Yes" : "No"}</p>
             <p>Price: <strong>₹</strong>{product.price}</p>
-            <div className="d-flex">
-              <Button variant="primary" className="mr-2" onClick={() => addToCart(product)}>Add to Cart</Button>
-              <Button variant="success">Buy Now</Button>
+            <div className="w-100 d-flex">
+              <Button variant="primary" className="w-100 me-3" onClick={() => addToCart(product)}>Add to Cart</Button>
+              <Button variant="success" className='w-100 me-3'>Buy Now</Button>
             </div>
           </Col>
         </Row>

@@ -8,12 +8,20 @@ const useCartActions = () => {
 
   const addToCart = async (product, quantity = 1) => {
     if (isAuthenticated) {
-      // If user is authenticated, add product to database with quantity
+      // If user is authenticated, get the token 
+      const token = localStorage.getItem("authToken");
       try {
-        const response = await axios.post('api/cart/add/', {
-          product_id: product._id,
-          quantity,
-        }); // Update this URL based on your backend
+      const response = await axios.post('api/cart/add/', {
+        product_id: product._id,
+        quantity,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}` 
+        }
+      });
+
+
+
         alert('Product added to cart (Quantity: ' + quantity + ')');
         setCartItemCount(prevCount => prevCount + quantity);
       } catch (error) {
@@ -38,7 +46,9 @@ const useCartActions = () => {
       setCartItemCount(prevCount => prevCount + quantity);
     }
   };
+  
 
+  
   return { addToCart };
 };
 

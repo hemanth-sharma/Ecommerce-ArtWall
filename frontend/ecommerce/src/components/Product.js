@@ -5,6 +5,7 @@ import "./Product.css";
 import axios from "axios";
 import { useWishlist } from "../context/wishlistContext";
 import { useAuth } from "../context/AuthContext";
+import { wishlistClickHandler } from "../utils/wishlistUtils";
 
 function Product({ product }) {
   const [inWishlist, setInWishlist] = useState(false);
@@ -27,56 +28,8 @@ function Product({ product }) {
     setInWishlist(isProductInWishlist);
   }, [product._id]);
 
-  const handleWishlistClick = async () => {
-    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
-    if (isAuthenticated) {
-      try {
-        const token = localStorage.getItem("authToken");
-
-        if (inWishlist) {
-          // Remove from backend wishlist
-          await axios.delete(`api/wishlist/remove/${product._id}/`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setInWishlist(false);
-          setWishlistItemCount(prevCount => prevCount - 1);
-        } else {
-          // Add to backend wishlist
-          await axios.post(
-            "api/wishlist/add/",
-            { product_id: product._id },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setInWishlist(true);
-          setWishlistItemCount(prevCount => prevCount + 1);
-        }
-      } catch (error) {
-        console.error("Failed to update wishlist:", error);
-      }
-    } else {
-      if (inWishlist) {
-        // Removing from localStorage wishlist
-        const updatedWishlist = wishlist.filter(
-          (item) => item._id !== product._id
-        );
-        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-        setInWishlist(false);
-        setWishlistItemCount(prevCount => prevCount - 1);
-      } else {
-        // Adding the item in localStorage wishlist
-        wishlist.push(product);
-        localStorage.setItem("wishlist", JSON.stringify(wishlist));
-        setInWishlist(true);
-        setWishlistItemCount(prevCount => prevCount + 1);
-      }
-    }
+  const handleWishlistClick = () => {
+    wishlistClickHandler(product, inWishlist, setInWishlist, isAuthenticated, setWishlistItemCount);
   };
 
   return (

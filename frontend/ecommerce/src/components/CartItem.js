@@ -2,8 +2,10 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function CartItem({ product, onRemove }) {
+    
     const renderRatingStars = (rating) => {
         const stars = [];
         for (let i = 0; i < 5; i++) {
@@ -18,6 +20,7 @@ function CartItem({ product, onRemove }) {
         <Card className="cart-item mb-3">
             <Row className="align-items-center">
                 <Col md={2}>
+                <Link to={`/product/${product.product._id}`}>
                     <Card.Img
                         variant="top"
                         src={product.product.image} // Assuming image URL is available here
@@ -25,6 +28,7 @@ function CartItem({ product, onRemove }) {
                         className="poster-image"
                         style={{ width: "100%", height: "auto" }} // Adjust the styling as necessary
                     />
+                </Link>
                 </Col>
                 <Col md={10}>
                     <Card.Body>

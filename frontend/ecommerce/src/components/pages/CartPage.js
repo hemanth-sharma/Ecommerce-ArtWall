@@ -27,13 +27,15 @@ function CartPage() {
     }, []);
 
     const fetchCartItemsFromBackend = async (token) => {
+        console.log(token)
         try {
             const response = await axios.get("api/cart/", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setCartItems(response.data); // Assuming response.data is an array of cart items
+            console.log(response)
+            setCartItems(response.data);
         } catch (error) {
             console.error("Failed to fetch cart items from backend:", error);
         }
@@ -85,14 +87,14 @@ function CartPage() {
 
     return (
         <Container>
-            <h1>Your Cart</h1>
+            <h1 className="text-center mt-4">Your Cart</h1>
             {cartItems.length > 0 ? (
                 <>
                     {cartItems.map((item) => (
                         <CartItem key={item.product._id} product={item} onRemove={handleRemoveItem} />
                     ))}
-                    <div className="mt-4">
-                        <Button variant="primary" onClick={handleBuyAll}>
+                    <div className="text-center mt-4">
+                        <Button variant="primary" className="w-25" onClick={handleBuyAll}>
                             Buy All
                         </Button>
                     </div>
