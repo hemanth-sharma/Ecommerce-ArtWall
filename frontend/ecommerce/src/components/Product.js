@@ -6,7 +6,7 @@ import axios from "axios";
 import { useWishlist } from "../context/wishlistContext";
 import { useAuth } from "../context/AuthContext";
 import { wishlistClickHandler } from "../utils/wishlistUtils";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function Product({ product }) {
   const [inWishlist, setInWishlist] = useState(false);
   const { isAuthenticated } = useAuth();

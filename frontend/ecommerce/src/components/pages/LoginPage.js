@@ -10,7 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function LoginPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -37,7 +37,7 @@ function LoginPage() {
     };
 
     try {
-      const response = await axios.post("api/users/login/", userData);
+      const response = await axios.post(`${API_URL}api/users/login/`, userData);
       console.log("Response = ", response)
       if (response.status === 200) {
         // Save token to local storage

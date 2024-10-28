@@ -2,6 +2,9 @@
 import { useCart } from "../context/cartContext";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext"
+
+const API_URL = process.env.REACT_APP_API_URL;
+
 const useCartActions = () => {
   const { setCartItemCount } = useCart();
   const { isAuthenticated } = useAuth();
@@ -11,7 +14,7 @@ const useCartActions = () => {
       // If user is authenticated, get the token 
       const token = localStorage.getItem("authToken");
       try {
-      const response = await axios.post('api/cart/add/', {
+      const response = await axios.post(`${API_URL}api/cart/add/`, {
         product_id: product._id,
         quantity,
       }, {

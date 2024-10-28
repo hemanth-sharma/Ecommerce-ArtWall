@@ -11,6 +11,7 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { useDispatch, useSelector } from "react-redux"
+const API_URL = process.env.REACT_APP_API_URL;
 
 function SignupPage() {
   const checkValidPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{5,}$");
@@ -48,7 +49,7 @@ function SignupPage() {
       setError("");
     }
     try{
-      const response = await axios.post("api/users/register/", {
+      const response = await axios.post(`${API_URL}api/users/register/`, {
         fname: formData.fname,
         lname: formData.lname, 
         email: formData.email,

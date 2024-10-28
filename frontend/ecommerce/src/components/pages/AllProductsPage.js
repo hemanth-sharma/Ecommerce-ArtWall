@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import Product from "../Product";
 import { useLocation } from "react-router-dom";
+const BACKEND_URL = process.env.REACT_APP_API_URL;
 
 function AllProductsPage() {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,7 @@ function AllProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(categoryName ? `/api/products/?category=${categoryName}` : "/api/products/");
+        const response = await axios.get(categoryName ? `${BACKEND_URL}/api/products/?category=${categoryName}` : "/api/products/");
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);

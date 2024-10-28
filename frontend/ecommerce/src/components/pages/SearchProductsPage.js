@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import Product from "../Product";
 import { useLocation } from "react-router-dom";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function SearchProductsPage() {
   const [products, setProducts] = useState([]);
   const location = useLocation();
@@ -15,7 +15,7 @@ function SearchProductsPage() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          query ? `/api/search/?query=${query}` : "/api/search/"
+          query ? `${API_URL}/api/search/?query=${query}` : `${API_URL}/api/search/`
         );
         setProducts(response.data);
       } catch (error) {

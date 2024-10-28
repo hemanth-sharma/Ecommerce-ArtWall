@@ -10,7 +10,7 @@ import useCartActions from "../../hooks/useCartActions";
 import { useWishlist } from "../../context/wishlistContext";
 import { useAuth } from "../../context/AuthContext.js"
 import { wishlistClickHandler } from "../../utils/wishlistUtils.js";
-
+const BACKEND_URL = process.env.REACT_APP_API_URL;
 function HomePage() {
   const [featuredProduct, setFeaturedProduct] = useState(null);
   const [products, setProducts] = useState([]);
@@ -24,7 +24,7 @@ function HomePage() {
     const fetchProduct = async ()=>{
       try {
         // Fetch all products from the backend API
-        const response = await axios.get("api/products/");
+        const response = await axios.get(`${BACKEND_URL}api/products/`);
 
         if (response.data.length > 0) {
           const randomProduct = response.data[Math.floor(Math.random() * response.data.length)];

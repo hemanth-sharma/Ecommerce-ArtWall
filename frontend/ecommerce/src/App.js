@@ -14,7 +14,9 @@ import WishlistPage from './components/pages/WishlistPage';
 
 
 
+
 function App() {
+  
   return (
     <>
       <Router>

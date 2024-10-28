@@ -4,6 +4,8 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function CartItem({ product, onRemove }) {
     
     const renderRatingStars = (rating) => {
@@ -20,7 +22,7 @@ function CartItem({ product, onRemove }) {
         <Card className="cart-item mb-3">
             <Row className="align-items-center">
                 <Col md={2}>
-                <Link to={`/product/${product.product._id}`}>
+                <Link to={`${API_URL}/product/${product.product._id}`}>
                     <Card.Img
                         variant="top"
                         src={product.product.image} // Assuming image URL is available here

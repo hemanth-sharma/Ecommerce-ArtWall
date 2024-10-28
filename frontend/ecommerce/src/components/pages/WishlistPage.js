@@ -8,6 +8,7 @@ import { useWishlist } from '../../context/wishlistContext';
 import useCartActions from "../../hooks/useCartActions";
 import { useAuth } from "../../context/AuthContext";
 
+const API_URL = process.env.REACT_APP_API_URL;
 
 function WishlistPage() {
   const [wishlist, setWishlist] = useState([]);
@@ -29,7 +30,7 @@ function WishlistPage() {
       try {
         if (isAuthenticated) {
           // Fetch wishlist from backend if authenticated
-          const response = await axios.get('api/wishlist/');
+          const response = await axios.get(`${API_URL}api/wishlist/`);
           setWishlist(response.data);
         } else {
           // Fetch wishlist from localStorage if not authenticated
