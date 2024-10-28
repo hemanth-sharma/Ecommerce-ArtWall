@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
 export const CartProvider = ({ children }) => {
   const [cartItemCount, setCartItemCount] = useState(() => {

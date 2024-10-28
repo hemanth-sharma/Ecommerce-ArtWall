@@ -26,6 +26,7 @@ function HomePage() {
     const fetchProduct = async ()=>{
       try {
         // Fetch all products from the backend API
+        console.log("API ENDPOINT = ", API_ENDPOINT);
         const response = await axios.get(`${API_ENDPOINT}/api/products/`);
 
         if (response.data.length > 0) {

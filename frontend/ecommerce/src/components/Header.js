@@ -17,7 +17,7 @@ import { useCart } from "../context/cartContext";
 import { useWishlist } from "../context/wishlistContext";
 import { useAuth } from "../context/AuthContext";
 
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 function Header() {
   const [categories, setCategories] = useState([]);
@@ -107,11 +107,15 @@ function Header() {
       className="navbar navbar-expand-lg"
     >
       <Container fluid>
-        <Navbar.Brand href="/">ArtWALL</Navbar.Brand>
+        <LinkContainer to="/">
+          <Navbar.Brand>ArtWALL</Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            <LinkContainer to="/">
+              <Nav.Link>Home</Nav.Link>
+            </LinkContainer>
             <div className="custom-dropdown" ref={dropdownRef}>
               <Nav.Link
                 // href="#"
@@ -166,22 +170,31 @@ function Header() {
           </Form>
 
           <Nav className="ms-auto">
-            <Nav.Link href="/wishlist">
-              Wishlist <i className="fa-regular fa-heart"></i>
-              {wishlistItemCount > 0 && (
-                <span className="cart-count">{wishlistItemCount}</span>
-              )}
-            </Nav.Link>
-            <Nav.Link href="/cart">
-              Cart <i className="fa-solid fa-cart-shopping"></i>
-              {cartItemCount > 0 && (
-                <span className="cart-count">{cartItemCount}</span>
-              )}
-            </Nav.Link>
+            <LinkContainer to="/wishlist">
+              <Nav.Link>
+                Wishlist <i className="fa-regular fa-heart"></i>
+                {wishlistItemCount > 0 && (
+                  <span className="cart-count">{wishlistItemCount}</span>
+                )}
+              </Nav.Link>
+            </LinkContainer>
+            
+            <LinkContainer to="/cart">
+              <Nav.Link>
+                Cart <i className="fa-solid fa-cart-shopping"></i>
+                {cartItemCount > 0 && (
+                  <span className="cart-count">{cartItemCount}</span>
+                )}
+              </Nav.Link>
+            </LinkContainer>
+            
+
             {isAuthenticated ? (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             ) : (
-              <Nav.Link href="/login">Login</Nav.Link>
+              <LinkContainer to="/login">
+                <Nav.Link>Login</Nav.Link>
+              </LinkContainer>
             )}
           </Nav>
         </Navbar.Collapse>
