@@ -220,6 +220,9 @@ CORS_ALLOW_METHODS = (
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://.*\.onrender\.com$",
 ]
+# CORS_ALLOWED_ORIGIN_REGEXES = [
+#     r"^https://\w+\.example\.com$",
+# ]
 
 CORS_ALLOW_HEADERS = (
     "accept",

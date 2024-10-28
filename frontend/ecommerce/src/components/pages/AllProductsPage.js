@@ -5,6 +5,8 @@ import axios from "axios";
 import Product from "../Product";
 import { useLocation } from "react-router-dom";
 
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+
 function AllProductsPage() {
   const [products, setProducts] = useState([]);
   const location = useLocation(); 
@@ -15,7 +17,7 @@ function AllProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(categoryName ? `/api/products/?category=${categoryName}` : "/api/products/");
+        const response = await axios.get(categoryName ? `${API_ENDPOINT}/api/products/?category=${categoryName}` : `${API_ENDPOINT}/api/products/`);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);

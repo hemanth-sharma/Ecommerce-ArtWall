@@ -5,6 +5,8 @@ import axios from "axios";
 import Product from "../Product";
 import { useLocation } from "react-router-dom";
 
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+
 function SearchProductsPage() {
   const [products, setProducts] = useState([]);
   const location = useLocation();
@@ -15,7 +17,7 @@ function SearchProductsPage() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          query ? `/api/search/?query=${query}` : `/api/search/`
+          query ? `${API_ENDPOINT}/api/search/?query=${query}` : `${API_ENDPOINT}/api/search/`
         );
         setProducts(response.data);
       } catch (error) {

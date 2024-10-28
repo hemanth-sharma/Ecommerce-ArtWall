@@ -6,6 +6,8 @@ import axios from "axios";
 import { useCart } from "../../context/cartContext";
 import { useAuth } from "../../context/AuthContext";
 
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+
 function CartPage() {
     const [cartItems, setCartItems] = useState([]);
     const { isAuthenticated } = useAuth();
@@ -29,7 +31,7 @@ function CartPage() {
     const fetchCartItemsFromBackend = async (token) => {
         console.log(token)
         try {
-            const response = await axios.get(`/api/cart/`, {
+            const response = await axios.get(`${API_ENDPOINT}/api/cart/`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

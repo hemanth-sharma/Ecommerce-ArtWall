@@ -7,6 +7,8 @@ import { useWishlist } from "../context/wishlistContext";
 import { useAuth } from "../context/AuthContext";
 import { wishlistClickHandler } from "../utils/wishlistUtils";
 
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+
 function Product({ product }) {
   const [inWishlist, setInWishlist] = useState(false);
   const { isAuthenticated } = useAuth();

@@ -1,5 +1,6 @@
 // wishlistUtils.js
 import axios from "axios";
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
 export async function wishlistClickHandler(
   product,
@@ -16,7 +17,7 @@ export async function wishlistClickHandler(
 
       if (inWishlist) {
         // Remove from backend wishlist
-        await axios.delete(`/api/wishlist/remove/${product._id}/`, {
+        await axios.delete(`${API_ENDPOINT}/api/wishlist/remove/${product._id}/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -26,7 +27,7 @@ export async function wishlistClickHandler(
       } else {
         // Add to backend wishlist
         await axios.post(
-          `/api/wishlist/add/`,
+          `${API_ENDPOINT}/api/wishlist/add/`,
           { product_id: product._id },
           {
             headers: {

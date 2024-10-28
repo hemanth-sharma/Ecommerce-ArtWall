@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 
 const AuthContext = createContext();
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

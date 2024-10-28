@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa'; 
 import useCartActions from "../../hooks/useCartActions";
 
-
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
 function ProductPage() {
   const { id } = useParams();
@@ -18,7 +18,7 @@ function ProductPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`/api/product/${id}`);
+        const response = await axios.get(`${API_ENDPOINT}/api/product/${id}`);
         setProduct(response.data);
         setLoading(false);
       } catch (err) {
