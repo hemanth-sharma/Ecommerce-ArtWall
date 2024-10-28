@@ -22,7 +22,7 @@ function CartItem({ product, onRemove }) {
         <Card className="cart-item mb-3">
             <Row className="align-items-center">
                 <Col md={2}>
-                <Link to={`${API_URL}/product/${product.product._id}`}>
+                <Link to={`/product/${product.product._id}`}>
                     <Card.Img
                         variant="top"
                         src={product.product.image} // Assuming image URL is available here
