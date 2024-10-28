@@ -16,7 +16,7 @@ import "./Header.css";
 import { useCart } from "../context/cartContext";
 import { useWishlist } from "../context/wishlistContext";
 import { useAuth } from "../context/AuthContext";
-const API_URL = process.env.REACT_APP_API_URL;
+
 
 function Header() {
   const [categories, setCategories] = useState([]);
@@ -49,7 +49,7 @@ function Header() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/categories/`);
+        const response = await axios.get(`/api/categories/`);
         setCategories(response.data);
       } catch (error) {
         console.error("Error fetching categories: ", error);

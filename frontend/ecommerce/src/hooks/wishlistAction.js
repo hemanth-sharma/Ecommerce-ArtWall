@@ -1,7 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import { useWishlist } from "../context/wishlistContext";
 import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URL;
+
 const useWishlistActions = () => {
   const { isAuthenticated } = useAuth();
   const { setWishlistItemCount } = useWishlist(); 
@@ -15,7 +15,7 @@ const useWishlistActions = () => {
 
         if (inWishlist) {
           // Remove from backend wishlist
-          await axios.delete(`${API_URL}api/wishlist/remove/${product._id}/`, {
+          await axios.delete(`/api/wishlist/remove/${product._id}/`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -25,7 +25,7 @@ const useWishlistActions = () => {
         } else {
           // Add to backend wishlist
           await axios.post(
-            "api/wishlist/add/",
+            "/api/wishlist/add/",
             { product_id: product._id },
             {
               headers: {

@@ -5,7 +5,6 @@ import CartItem from "../CartItem"; // Adjust path as needed
 import axios from "axios";
 import { useCart } from "../../context/cartContext";
 import { useAuth } from "../../context/AuthContext";
-const BACKEND_URL = process.env.REACT_APP_API_URL;
 
 function CartPage() {
     const [cartItems, setCartItems] = useState([]);
@@ -30,7 +29,7 @@ function CartPage() {
     const fetchCartItemsFromBackend = async (token) => {
         console.log(token)
         try {
-            const response = await axios.get(`${BACKEND_URL}api/cart/`, {
+            const response = await axios.get(`/api/cart/`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
