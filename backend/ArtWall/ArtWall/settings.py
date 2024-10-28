@@ -217,6 +217,9 @@ CORS_ALLOW_METHODS = (
     "POST",
     "PUT",
 )
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.onrender\.com$",
+]
 
 CORS_ALLOW_HEADERS = (
     "accept",
