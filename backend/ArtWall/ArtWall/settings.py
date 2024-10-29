@@ -21,6 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import django
 from django.utils.encoding import force_str
 django.utils.encoding.force_text = force_str 
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
@@ -33,7 +36,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(' ')
 
 
 # Application definition
@@ -142,7 +145,7 @@ DATABASES = {
 }
 DATABASE_URL = os.environ.get("DATABASE_URL")
 DATABASES["default"] = dj_database_url.parse(DATABASE_URL)
-
+# print("Database url = = ", DATABASE_URL)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

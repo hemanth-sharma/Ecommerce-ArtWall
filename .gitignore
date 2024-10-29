@@ -8,6 +8,7 @@ backend/venv/
 
 # Ignore SQLite database
 backend/ArtWall/db.sqlite3
+backend/ArtWall/.env
 backend/notes.txt
 notes.txt
 
