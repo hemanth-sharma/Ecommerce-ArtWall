@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 services:
   django:
@@ -6,20 +6,19 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./static:/app/static
-    environment:
-      - DJANGO_SETTINGS_MODULE=ArtWall.settings
-      - DATABASE_URL=your_database_url_here  # Update this with the database URL
-    depends_on:
-      - nginx
+      - .:/app
+    env_file:
+      - .env
+    expose:
+      - 8000  # Expose Gunicorn port
 
   nginx:
     build:
       context: .
       dockerfile: Dockerfile.nginx
     ports:
-      - "80:80"
-    volumes:
-      - ./static/media/products:/usr/share/nginx/html/media/products
+      - "80:80"  # Map host port 80 to container port 80
     depends_on:
       - django
+    volumes:
+      - ./static:/app/static  # Mount static files for Nginx
