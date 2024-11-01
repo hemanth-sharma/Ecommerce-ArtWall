@@ -1,69 +1,32 @@
-# Dockerfile
-
-FROM python:3.11.4-slim-bullseye
+# Use the official Python image as a base
+FROM python:3.11-slim
 
 # Set environment variables
-ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
-
-RUN apt-get update
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Install dependencies
-COPY requirements.txt /app/
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-# Copy Django project code
-COPY . /app/
-
-
-Great! Now that we have a clear understanding of your Django backend structure and your requirements, let’s configure your Django application to work with Nginx and Gunicorn while keeping everything organized in Docker. We’ll go step by step.
-
-Step 1: Update Your Django Settings
-Before setting up Docker, let’s ensure your Django settings are correctly configured for serving static and media files.
-
-In backend/ArtWall/ArtWall/settings.py, ensure the following:
-python
-Copy code
-import os
-
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# Media files (user-uploaded files)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
-This configuration will ensure that Nginx can serve both static and media files.
-
-Step 2: Create the Dockerfile
-Place your Dockerfile in the backend/ArtWall directory (where your manage.py is located) to keep your setup organized.
-
-Create a Dockerfile at backend/ArtWall/Dockerfile:
-Dockerfile
-Copy code
-# Base image for building the Django app
-FROM python:3.10-slim AS builder
-
-# Set environment variables
 ENV PYTHONUNBUFFERED 1
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Install dependencies
+# Copy the requirements file
 COPY requirements.txt /app/
-RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy Django application code
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the entire project into the container
 COPY . /app/
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
+# Install Nginx
+RUN apt-get update && apt-get install -y nginx
 
-EXPOSE 8000
+# Copy the Nginx configuration file
+COPY nginx.conf /etc/nginx/sites-available/default
+# COPY /app/nginx.conf /etc/nginx/sites-available/default
 
-# Start Gunicorn
-CMD ["gunicorn", "ArtWall.wsgi:application", "--bind", "0.0.0.0:8000"]
+
+# Expose the necessary ports
+EXPOSE 8000 80
+
+# Start Nginx and the Django server
+CMD service nginx start && python manage.py runserver 0.0.0.0:8000
