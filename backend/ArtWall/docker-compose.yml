@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./static:/app/static
+    environment:
+      - DJANGO_SETTINGS_MODULE=ArtWall.settings
+      - DATABASE_URL=your_database_url_here  # Update this with the database URL
+    depends_on:
+      - nginx
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./static/media/products:/usr/share/nginx/html/media/products
+    depends_on:
+      - django

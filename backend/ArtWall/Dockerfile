@@ -1,25 +1,26 @@
-# Use the official Ubuntu image as the base image
-FROM ubuntu:latest
+# Dockerfile
 
-# Install Python and pip, and ensure apt package lists are updated
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    apt-get clean
+# Use Python 3.9 or your preferred version
+FROM python:3.9-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the requirements file
-COPY requirements.txt .
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Copy Django project code
+COPY . /app/
 
-# Copy the application code into the container
-COPY . .
+# Run Django migrations and collect static files
+RUN python manage.py migrate
+RUN python manage.py collectstatic --no-input
 
-# Expose the port your app runs on (replace with the appropriate port number)
 EXPOSE 8000
 
-# Command to run the application
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -1,0 +1,11 @@
+# Dockerfile.nginx
+
+FROM nginx:latest
+
+# Copy the custom Nginx configuration to replace the default one
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy static and media files (especially important for media files)
+COPY ./static/media/products /usr/share/nginx/html/media/products
+
+EXPOSE 80
