@@ -8,11 +8,16 @@ ENV PYTHONUNBUFFERED 1
 # Set the working directory
 WORKDIR /app
 
+# Install system dependencies for psycopg2
+RUN apt-get update && \
+    apt-get install -y libpq-dev && \
+    rm -rf /var/lib/apt/lists/*
+
 # Copy the requirements file
 COPY requirements.txt /app/
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy the entire project into the container
 COPY . /app/
