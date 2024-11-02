@@ -47,6 +47,7 @@ function HomePage() {
     wishlistClickHandler(featuredProduct, isLiked, setIsLikedWishlist, isAuthenticated, setWishlistItemCount);
   };
   
+  console.log(featuredProduct)
   
   // console.log("The Products Data")
   // console.log(featuredProduct)
