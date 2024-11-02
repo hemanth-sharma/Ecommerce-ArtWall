@@ -34,7 +34,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # 'django-insecure-g_mwm6lyk2)gb((c)*7tbca(gf6$3&xs9rzi9xh!7a(5@wpt+3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(' ')
 
@@ -208,7 +208,7 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 CORS_ALLOWED_ORIGINS = [
     "https://ecommerce-artwall-frontend.onrender.com",
-    "http://localhost:3080",
+    "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
 
