@@ -22,7 +22,8 @@ class Product(models.Model):
     reviews_count = models.IntegerField(null=True,blank=True,default=0)
     in_stock = models.BooleanField(default=True)
     # image = models.ImageField(upload_to='products/', null=True,blank=True)
-    image = models.URLField(max_length=500, null=True, blank=True)
+    # image = models.URLField(max_length=500, null=True, blank=True)
+    image = models.TextField(max_length=500, null=True, blank=True)
     price = models.DecimalField(max_digits=10,decimal_places=2,null=True,blank=True)
     user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
 
