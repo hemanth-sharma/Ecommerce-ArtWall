@@ -1,7 +1,8 @@
 
 # Ignore Django's virtual environment
 backend/venv/
-
+.vscode/
+.vscode
 # Ignore django statics
 backend/ArtWall/static/media/
 
