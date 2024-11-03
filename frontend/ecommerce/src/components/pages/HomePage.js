@@ -48,6 +48,7 @@ function HomePage() {
   };
   
   console.log(featuredProduct)
+  console.log(featuredProduct.image.split('/images/').join(''))
   
   // console.log("The Products Data")
   // console.log(featuredProduct)
