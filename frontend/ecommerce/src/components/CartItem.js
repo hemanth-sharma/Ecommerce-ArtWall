@@ -25,7 +25,7 @@ function CartItem({ product, onRemove }) {
                 <Link to={`/product/${product.product._id}`}>
                     <Card.Img
                         variant="top"
-                        src={product.product.image} // Assuming image URL is available here
+                        src={product.product.image.split('/images/').join('')} // Assuming image URL is available here
                         alt={product.product.name}
                         className="poster-image"
                         style={{ width: "100%", height: "auto" }} // Adjust the styling as necessary

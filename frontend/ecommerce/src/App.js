@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/cart" element={<CartPage />} />
           <Route exact path="/wishlist" element={<WishlistPage />} />
         </Routes>
-        <Footer />        
+        {/* <Footer />         */}
       </Router>
     </>
   );
