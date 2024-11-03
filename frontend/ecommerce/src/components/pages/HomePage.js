@@ -47,11 +47,11 @@ function HomePage() {
     wishlistClickHandler(featuredProduct, isLiked, setIsLikedWishlist, isAuthenticated, setWishlistItemCount);
   };
   
-  console.log(featuredProduct);
+  // console.log(featuredProduct);
 
-  if (featuredProduct && featuredProduct.image) {
-    console.log(featuredProduct.image.split('/images/').join(''));
-  }
+  // if (featuredProduct && featuredProduct.image) {
+  //   console.log(featuredProduct.image.split('/images/').join(''));
+  // }
 
   // console.log("The Products Data")
   // console.log(featuredProduct)
@@ -66,7 +66,7 @@ function HomePage() {
         {featuredProduct && (
           <>
           {/* Blurred Background */}
-          <div className="blurred-bg" style={{ backgroundImage: `url(${featuredProduct.image.split('/images/').join('')})` }}></div>
+          <div className="blurred-bg" style={{ backgroundImage: `url(${decodeURIComponent(featuredProduct.image.split('/images/').join(''))})` }}></div>
 
           {/* Foreground Content */}
           <Container className="position-relative">
@@ -74,7 +74,7 @@ function HomePage() {
               {/* Left Side - Image Frame */}
               <Col md={6}>
                 <Card className="image-card">
-                  <Card.Img variant="top" src={featuredProduct.image.split('/images/').join('')} alt="Framed painting" className="poster-image" />
+                  <Card.Img variant="top" src={decodeURIComponent(featuredProduct.image.split('/images/').join(''))} alt="Framed painting" className="poster-image" />
                 </Card>
               </Col>
 

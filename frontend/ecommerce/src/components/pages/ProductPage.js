@@ -52,7 +52,7 @@ function ProductPage() {
         <Row className="align-items-center">
           <Col md={6}>
             <Card className="image-card">
-              <Card.Img variant="top" src={product.image.split('/images/').join('')} alt="Framed painting" className="poster-image" />
+              <Card.Img variant="top" src={decodeURIComponent(product.image.split('/images/').join(''))} alt="Framed painting" className="poster-image" />
             </Card>
           </Col>
 

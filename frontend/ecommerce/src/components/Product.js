@@ -39,7 +39,7 @@ function Product({ product }) {
       <div className="image-container">
         {/* Link to the product detail page */}
         <Link to={`/product/${product._id}`}>
-          <Card.Img variant="top" src={product.image.split('/images/').join('')} alt={product.name} />
+          <Card.Img variant="top" src={decodeURIComponent(product.image.split('/images/').join(''))} alt={product.name} />
         </Link>
 
         {/* Wishlist Button (visible on hover) */}
