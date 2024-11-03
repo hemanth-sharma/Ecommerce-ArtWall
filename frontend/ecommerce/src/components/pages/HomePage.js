@@ -47,9 +47,12 @@ function HomePage() {
     wishlistClickHandler(featuredProduct, isLiked, setIsLikedWishlist, isAuthenticated, setWishlistItemCount);
   };
   
-  console.log(featuredProduct)
-  console.log(featuredProduct.image.split('/images/').join(''))
-  
+  console.log(featuredProduct);
+
+  if (featuredProduct && featuredProduct.image) {
+    console.log(featuredProduct.image.split('/images/').join(''));
+  }
+
   // console.log("The Products Data")
   // console.log(featuredProduct)
   // console.log("List of Products")
