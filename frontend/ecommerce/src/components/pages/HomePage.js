@@ -10,6 +10,7 @@ import useCartActions from "../../hooks/useCartActions";
 import { useWishlist } from "../../context/wishlistContext";
 import { useAuth } from "../../context/AuthContext.js"
 import { wishlistClickHandler } from "../../utils/wishlistUtils.js";
+import getImageURL from "../../utils/fixImageUrl.js";
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
@@ -47,12 +48,7 @@ function HomePage() {
     wishlistClickHandler(featuredProduct, isLiked, setIsLikedWishlist, isAuthenticated, setWishlistItemCount);
   };
   
-  // console.log(featuredProduct);
-
-  // if (featuredProduct && featuredProduct.image) {
-  //   console.log(featuredProduct.image.split('/images/').join(''));
-  // }
-
+  
   // console.log("The Products Data")
   // console.log(featuredProduct)
   // console.log("List of Products")
@@ -66,15 +62,15 @@ function HomePage() {
         {featuredProduct && (
           <>
           {/* Blurred Background */}
-          <div className="blurred-bg" style={{ backgroundImage: `url(${decodeURIComponent(featuredProduct.image.split('/images/').join(''))})` }}></div>
+          <div className="blurred-bg" style={{ backgroundImage: `url(${getImageURL(featuredProduct.image)})` }}></div>
 
           {/* Foreground Content */}
           <Container className="position-relative">
             <Row className="align-items-center">
               {/* Left Side - Image Frame */}
               <Col md={6}>
-                <Card className="image-card">
-                  <Card.Img variant="top" src={decodeURIComponent(featuredProduct.image.split('/images/').join(''))} alt="Framed painting" className="poster-image" />
+                <Card className="image-card">  
+                  <Card.Img variant="top" src={getImageURL(featuredProduct.image)} alt="Framed painting" className="poster-image" />
                 </Card>
               </Col>
 

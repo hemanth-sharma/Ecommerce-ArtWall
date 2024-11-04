@@ -3,6 +3,8 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import getImageURL from "../utils/fixImageUrl";
+
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
@@ -25,7 +27,7 @@ function CartItem({ product, onRemove }) {
                 <Link to={`/product/${product.product._id}`}>
                     <Card.Img
                         variant="top"
-                        src={decodeURIComponent(product.product.image.split('/images/').join(''))} 
+                        src={getImageURL(product.product.image)} 
                         alt={product.product.name}
                         className="poster-image"
                         style={{ width: "100%", height: "auto" }} 

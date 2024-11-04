@@ -6,6 +6,7 @@ import axios from "axios";
 import { useWishlist } from "../context/wishlistContext";
 import { useAuth } from "../context/AuthContext";
 import { wishlistClickHandler } from "../utils/wishlistUtils";
+import getImageURL from "../utils/fixImageUrl";
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
@@ -39,7 +40,7 @@ function Product({ product }) {
       <div className="image-container">
         {/* Link to the product detail page */}
         <Link to={`/product/${product._id}`}>
-          <Card.Img variant="top" src={decodeURIComponent(product.image.split('/images/').join(''))} alt={product.name} />
+          <Card.Img variant="top" src={getImageURL(product.image)} alt={product.name} />
         </Link>
 
         {/* Wishlist Button (visible on hover) */}

@@ -4,6 +4,7 @@ import { Card, Col, Container, Row, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa'; 
 import useCartActions from "../../hooks/useCartActions";
+import getImageURL from '../../utils/fixImageUrl';
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
@@ -52,7 +53,7 @@ function ProductPage() {
         <Row className="align-items-center">
           <Col md={6}>
             <Card className="image-card">
-              <Card.Img variant="top" src={decodeURIComponent(product.image.split('/images/').join(''))} alt="Framed painting" className="poster-image" />
+              <Card.Img variant="top" src={getImageURL(product.image)} alt="Framed painting" className="poster-image" />
             </Card>
           </Col>
 
