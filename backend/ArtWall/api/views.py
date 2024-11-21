@@ -24,6 +24,9 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.views.generic import View
 
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+
 
 @api_view(['GET'])
 def home_view(request):
@@ -41,9 +44,13 @@ def getAllProducts(request):
         products = products.filter(
             Q(productcategory__category__category__iexact=category)
         )
+    
+    paginator = PageNumberPagination()
+    paginator.page_size = 50
+    result_page = paginator.paginate_queryset(products, request)
 
-    serializer = ProductSerializer(products, many=True)
-    return Response(serializer.data)
+    serializer = ProductSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 # Get a single product by its ID. 

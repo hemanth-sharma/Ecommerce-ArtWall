@@ -67,6 +67,8 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    "PAGE_SIZE": 50,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
@@ -143,9 +145,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-DATABASE_URL = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse(DATABASE_URL)
-# print("Database url = = ", DATABASE_URL)
+
+# # To use hosted database. 
+# DATABASE_URL = os.environ.get("DATABASE_URL")
+# DATABASES["default"] = dj_database_url.parse(DATABASE_URL)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
