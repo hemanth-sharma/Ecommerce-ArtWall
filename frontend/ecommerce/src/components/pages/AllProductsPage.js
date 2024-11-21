@@ -1,6 +1,6 @@
 // AllProductsPage.js
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import axios from "axios";
 import Product from "../Product";
 import { useLocation } from "react-router-dom";
@@ -9,6 +9,7 @@ const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
 function AllProductsPage() {
   const [products, setProducts] = useState([]);
+  const [nextPage, setNextPage] = useState(null);
   const location = useLocation(); 
   const queryParams = new URLSearchParams(location.search);
   const categoryName = queryParams.get("category");
@@ -19,12 +20,13 @@ function AllProductsPage() {
       try {
         const response = await axios.get(categoryName ? `${API_ENDPOINT}/api/products/?category=${categoryName}` : `${API_ENDPOINT}/api/products/`);
         setProducts(response.data);
+        setNextPage(response.data.next);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
     fetchProducts();
-  }, [categoryName, location.search]);
+  }, [categoryName]);
 
   // Function to filter products by category
   // const filterProductsByCategory = (category) => {
@@ -37,6 +39,17 @@ function AllProductsPage() {
 
   // Filter products based on the category
   // const filteredProducts = filterProductsByCategory(categoryName);
+  const loadMoreProducts = async () => {
+    if (nextPage) {
+      try {
+        const response = await axios.get(nextPage); 
+        setProducts((prevProducts) => [...prevProducts, ...response.data.results]); // Append new products
+        setNextPage(response.data.next); 
+      } catch (error) {
+        console.error("Error loading more products:", error);
+      }
+    }
+  };
   console.log("Category data: ", products)
   return (
     <>
@@ -55,6 +68,14 @@ function AllProductsPage() {
             </Col>
           ))}
         </Row>
+      {nextPage && (
+        <div className="text-center mt-4">
+          <Button onClick={loadMoreProducts} className="btn btn-outline-primary">
+            Load More
+          </Button>
+
+        </div>
+      )}
       </Container>
     </>
   );
